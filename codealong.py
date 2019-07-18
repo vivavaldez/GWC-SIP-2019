@@ -19,7 +19,7 @@ tweetData = json.load(tweetFile)
 tweetFile.close()
 
 #print(tweetData[1])
-
+#orange
 #FOR ALL ACCOUNTS
 # sum = 0
 # for i in range(0,len(tweetData)):
