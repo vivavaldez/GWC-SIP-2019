@@ -19,37 +19,47 @@ tweetData = json.load(tweetFile)
 tweetFile.close()
 
 #print(tweetData[1])
-#orange
+'''
 #FOR ALL ACCOUNTS
-# sum = 0
-# for i in range(0,len(tweetData)):
-# 	if "favorite_count" in tweetData[i]:
-# 		sum += tweetData[i]["favorite_count"]
-# 	else:
-# 		sum += 0
-# 	t = sum/len(tweetData)
-#
-# print(t)
+sum = 0
+for i in range(0,len(tweetData)):
+	if "favorite_count" in tweetData[i]:
+		sum += tweetData[i]["favorite_count"]
+	else:
+		sum += 0
+	t = sum/len(tweetData)
 
+print(t)
+'''
+'''
 #FOR ACCOUNTS WITH FAVORITE COUNTS only
-# sum = 0
-# num = 0
-# for tweet in tweetData:
-# 	# tweet = tweetData[i]
-# 	if "favorite_count" not in tweet:
-# 		sum+= 0
-# 	else:
-# 		#print(tweet['favorite_count'])#TO SEE THEIR FAVORITE COUNT
-# 		num += 1
-# 		sum += tweet["favorite_count"]
-# avg = sum/num
-# print(avg)
+sum = 0
+num = 0
+for tweet in tweetData:
+	# tweet = tweetData[i]
+	if "favorite_count" not in tweet:
+		sum+= 0
+	else:
+		#print(tweet['favorite_count'])#TO SEE THEIR FAVORITE COUNT
+		num += 1
+		sum += tweet["favorite_count"]
+avg = sum/num
+print(avg)
+'''
 
 #print(tweetData[0]['text'])
+
+
+
 tweetlist = []
 for i in range(len(tweetData)):
 	tweetlist.append(tweetData[i]["text"])
-	#tweetlist.append("           ")
+
+tweetstring = ""
+for tweet in tweetlist:
+	tweet += " "
+	tweetstring += tweet
+print(tweetstring)
 
 polarityList = []
 for item in tweetlist:
@@ -58,20 +68,69 @@ for item in tweetlist:
 	polarityList.append(polar1)
 
 text = "hello hello there it me ngina"
-wordcloud = WordCloud().generate(text)
+wordcloud = WordCloud(height = 1000, width = 1000).generate(text)
 
-tweetstring = ""
-for tweet in tweetlist:
-	tweet += " "
-	tweetstring += tweet
-print(tweetstring)
-#print(polarityList)
+def countLetter(string, letter):
+	counter=0
+	for let in string:
+		if let.lower() == letter:
+			counter += 1
+	return(counter)
 
-plt.imshow(wordcloud, interpolation= 'bilinear')
-plt.axis("off")
+countLetter(tweetstring, "a")
+alpha = [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']]
+letters = sorted(alpha)
+
+occurences = []
+for letter in letters:
+	occurences.append(countLetter(tweetstring, letter))
+
+print(occurences)
+print(min(occurences), max(occurences))
+plt.hist(occurences)
+plt.axis([min(occurences),max(occurences), 0 , 10])
+#plt.show()
+
+for letter in letters:
+	print(f"letter:{letter} occurrences:{countLetter(tweetstring, letter)}")
+
+
+
+#histogram stuff
+print(polarityList)
+#n, bins, patches = plt.hist(polarityList)
+print(min(polarityList), max(polarityList))
+#plt.figure(figsize = (10,10), facecolor = None)
+#plt.imshow(wordcloud, interpolation= 'bilinear')
+plt.hist(polarityList)
+plt.axis([-0.55,1.05,0.0, 60])
+#plt.grid(True)
 plt.show()
-plt.savefig('alischart.png')
+plt.savefig('nginaschart.png')
 
+
+
+plt.xlabel('Smarts')
+plt.ylabel('Probability')
+plt.title('Histogram of IQ')
+plt.text(60, .025, r'$\mu=100,\ \sigma=15$')
+
+def wordCount(stringOfTweet, string1):
+	conuter = 0
+	string = strin1.lower()
+	wordList = stringOfTweet.split(' ')
+	for item in wordList:
+		if item == string1:
+			counter+= 1
+	return counter
+
+wordCountList = []
+for item in tweetsList:
+	wordoccurence = wordCount(item, "the")
+	wordCountList.append(wordoccurence)
+#plt.axis([40, 160, 0, 0.03])
+#plt.grid(True)
+#plt.show()
       #print(list(tweetData[0].keys()))#to print elements from our tweet data?
 #['created_at', 'favorite_count', 'hashtags', 'id', 'id_str', 'lang', 'retweet_count', 'source', 'text', 'truncated', 'urls', 'user', 'user_mentions']
 
