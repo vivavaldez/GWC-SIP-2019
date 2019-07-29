@@ -22,3 +22,12 @@ function getTemp2(type){
 }
 console.log(getTemp2("f"))
 console.log(getTemp2("c"))
+
+document.getElementById("specialfont").addEventListener("click",
+  function (){
+    document.getElementById("specialfont").style.color = "red";
+
+  }
+)
+
+//document.getElementById("specialfont").addEventListener("click",name1())
